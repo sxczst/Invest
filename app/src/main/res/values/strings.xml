@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Invest</string>
+    <string name="app_name">理财</string>
     <string name="main_bottom_home">首页</string>
     <string name="main_bottom_invest">投资</string>
     <string name="main_bottom_me">我的资产</string>

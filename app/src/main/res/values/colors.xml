@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_bottom_line">#26B8EE</color>
+    <color name="title_text">#26B8EE</color>
+    <color name="main_bottom_title_un_selected">#676767</color>
+    <color name="main_bottom_title_selected">#2F83C7</color>
 </resources>
