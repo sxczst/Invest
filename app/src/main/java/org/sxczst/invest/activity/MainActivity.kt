@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.main_bottom.*
 import org.sxczst.invest.R
+import org.sxczst.invest.common.ActivityManager
 import org.sxczst.invest.fragment.HomeFragment
 import org.sxczst.invest.fragment.InvestFragment
 import org.sxczst.invest.fragment.MeFragment
@@ -26,10 +27,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 隐藏ActionBar
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main)
         setBottomTabListener()
         // 默认加载首页Tab。
         setSelect(0)
+        // 将当前的Activity添加到ActivityManager中
+        ActivityManager.getInstance().add(this@MainActivity)
     }
 
     /**
