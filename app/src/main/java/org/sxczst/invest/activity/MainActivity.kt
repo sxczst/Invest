@@ -1,7 +1,11 @@
 package org.sxczst.invest.activity
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.main_bottom.*
@@ -17,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var investFragment: InvestFragment? = null
     private var meFragment: MeFragment? = null
     private var moreFragment: MoreFragment? = null
+    private var backFlag = true
+    private var myHandler = MyHandler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -174,5 +180,45 @@ class MainActivity : AppCompatActivity() {
         moreFragment?.let {
             transaction.hide(it)
         }
+    }
+
+    /**
+     * 实现两次连续点击可退出当前App
+     */
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK && backFlag) {
+            Toast.makeText(this@MainActivity, "再点击一次，退出当前应用。", Toast.LENGTH_SHORT).show()
+            backFlag = false
+            // 发送延时消息
+            myHandler.sendEmptyMessageDelayed(WHAT_RESET_BACK, 2000)
+            return true
+        }
+        return super.onKeyUp(keyCode, event)
+    }
+
+    /**
+     * 避免内存泄漏，需要移除所有未被执行的消息。
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        // 移除指定Id的所有消息
+        myHandler.removeMessages(WHAT_RESET_BACK)
+        // 移除所有消息
+        myHandler.removeCallbacksAndMessages(null)
+    }
+
+    inner class MyHandler : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                WHAT_RESET_BACK -> {
+                    backFlag = true
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val WHAT_RESET_BACK = 1
     }
 }
