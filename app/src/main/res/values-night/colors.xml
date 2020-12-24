@@ -4,4 +4,5 @@
     <color name="title_text">#2C5361</color>
     <color name="main_bottom_title_un_selected">#474747</color>
     <color name="main_bottom_title_selected">#12324C</color>
+    <color name="product_detail_common">#3C3C3C</color>
 </resources>

@@ -11,4 +11,5 @@
     <color name="title_text">#26B8EE</color>
     <color name="main_bottom_title_un_selected">#676767</color>
     <color name="main_bottom_title_selected">#2F83C7</color>
+    <color name="product_detail_common">#666666</color>
 </resources>
