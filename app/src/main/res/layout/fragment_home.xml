@@ -27,13 +27,18 @@
                 android:layout_height="150dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tb_home_indicator"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="3dp"
                 android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
                 app:layout_constraintBottom_toBottomOf="@id/vp_home"
                 app:layout_constraintEnd_toEndOf="@id/vp_home"
                 app:layout_constraintStart_toStartOf="@id/vp_home"
+                app:tabBackground="@android:color/white"
+                app:tabIndicatorColor="@color/product_detail_common"
+                app:tabIndicatorHeight="3dp"
                 tools:text="我是小圆圈" />
 
             <TextView

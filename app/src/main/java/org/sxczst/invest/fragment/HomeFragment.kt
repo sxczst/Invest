@@ -8,10 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.PagerAdapter
 import com.alibaba.fastjson.JSON
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
+import com.squareup.picasso.Picasso
 import cz.msebera.android.httpclient.Header
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.sxczst.invest.R
 import org.sxczst.invest.bean.Image
 import org.sxczst.invest.bean.Index
@@ -25,6 +28,12 @@ import org.sxczst.invest.util.UIUtils
  * @Description :首页
  */
 class HomeFragment : Fragment() {
+
+    /**
+     * 网络请求下的数据
+     */
+    private lateinit var index: Index
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,7 +51,6 @@ class HomeFragment : Fragment() {
      * 初始化数据
      */
     private fun initData() {
-        var index: Index
         val client = AsyncHttpClient()
         client.post(AppNetConfig.INDEX, object : AsyncHttpResponseHandler() {
             /**
@@ -62,6 +70,15 @@ class HomeFragment : Fragment() {
                     val imageArr = jsonObject.getString("imageArr")
                     val images = JSON.parseArray(imageArr, Image::class.java)
                     index = Index(product, images)
+
+                    // 更新页面数据
+                    tv_product_common.text = product.name
+                    tv_home_year_rate.text = "${product.yearRate}％"
+
+                    // 设置ViewPager
+                    vp_home.adapter = MyAdapter()
+                    // 设置指示器
+                    tb_home_indicator.setupWithViewPager(vp_home)
                 }
 
             }
@@ -90,5 +107,28 @@ class HomeFragment : Fragment() {
         view.findViewById<TextView>(R.id.tv_title).text =
             activity?.resources?.getText(R.string.main_bottom_home)
         view.findViewById<ImageView>(R.id.iv_title_setting).visibility = View.GONE
+    }
+
+    inner class MyAdapter : PagerAdapter() {
+        override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
+
+        override fun getCount(): Int = 3
+
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            val imageView = ImageView(activity)
+            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+            // 1. 显示图片
+            Picasso.get().load(
+                index.images[position].IMAURL
+            ).into(imageView)
+            // 2. 添加到容器中
+            container.addView(imageView)
+            return imageView
+        }
+
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            // 移除操作
+            container.removeView(`object` as View)
+        }
     }
 }

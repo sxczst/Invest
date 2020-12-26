@@ -49,4 +49,16 @@ dependencies {
 
     // A fast JSON parser/generator for Java.
     implementation 'com.alibaba:fastjson:1.1.72.android'
+
+    // A powerful image downloading and caching library for Android
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Paging indicator widgets compatible with the ViewPager from the Android Support Library and ActionBarSherlock.
+//    implementation('com.viewpagerindicator:library:2.4.1') {
+//        exclude module: 'support-v4'
+//    }
+    // 采用 TabLayout 代替。
+
+    // Android广告图片轮播控件，内部基于ViewPager2实现，Indicator和UI都可以自定义。
+    implementation 'com.youth.banner:banner:2.1.0'
 }
