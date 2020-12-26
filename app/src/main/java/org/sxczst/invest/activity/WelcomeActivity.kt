@@ -46,7 +46,8 @@ class WelcomeActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animation?) {
                 startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
-                finish()
+                // 结束Activity的显示，并从栈空间移除。
+                ActivityManager.getInstance().remove(this@WelcomeActivity)
             }
 
             override fun onAnimationStart(animation: Animation?) {

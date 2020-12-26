@@ -13,6 +13,11 @@ import com.alibaba.fastjson.JSON
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.squareup.picasso.Picasso
+import com.youth.banner.adapter.BannerImageAdapter
+import com.youth.banner.holder.BannerImageHolder
+import com.youth.banner.indicator.CircleIndicator
+import com.youth.banner.transformer.DepthPageTransformer
+import com.youth.banner.transformer.ZoomOutPageTransformer
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.sxczst.invest.R
@@ -75,10 +80,15 @@ class HomeFragment : Fragment() {
                     tv_product_common.text = product.name
                     tv_home_year_rate.text = "${product.yearRate}％"
 
-                    // 设置ViewPager
-                    vp_home.adapter = MyAdapter()
-                    // 设置指示器
-                    tb_home_indicator.setupWithViewPager(vp_home)
+                    // 加载显示图片信息
+                    banner.apply {
+                        addBannerLifecycleObserver(this@HomeFragment)
+                        adapter = MyBannerImageAdapter(images)
+                        indicator = CircleIndicator(context)
+                        setPageTransformer(ZoomOutPageTransformer())
+                        setLoopTime(2000)
+                        start()
+                    }
                 }
 
             }
@@ -94,6 +104,43 @@ class HomeFragment : Fragment() {
                 error: Throwable?
             ) {
                 Toast.makeText(UIUtils.getContext(), "联网获取数据失败", Toast.LENGTH_SHORT).show()
+                val images = mutableListOf<Image>()
+                images.add(
+                    Image(
+                        "",
+                        "",
+                        "http://img5.mtime.cn/CMS/News/2020/12/22/094113.92188278_620X620.jpg"
+                    )
+                )
+                images.add(
+                    Image(
+                        "",
+                        "",
+                        "http://img5.mtime.cn/CMS/News/2020/12/22/032942.99529434_620X620.jpg"
+                    )
+                )
+                images.add(
+                    Image(
+                        "",
+                        "",
+                        "http://img5.mtime.cn/CMS/News/2020/12/20/161352.22746421_620X620.jpg"
+                    )
+                )
+                images.add(
+                    Image(
+                        "",
+                        "",
+                        "http://img5.mtime.cn/CMS/News/2020/12/20/213512.28116968_620X620.jpg"
+                    )
+                )
+                banner.apply {
+                    addBannerLifecycleObserver(this@HomeFragment)
+                    adapter = MyBannerImageAdapter(images)
+                    indicator = CircleIndicator(context)
+                    setPageTransformer(ZoomOutPageTransformer())
+                    setLoopTime(2000)
+                    start()
+                }
             }
 
         })
@@ -129,6 +176,20 @@ class HomeFragment : Fragment() {
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
             // 移除操作
             container.removeView(`object` as View)
+        }
+    }
+
+    inner class MyBannerImageAdapter(mData: List<Image>) : BannerImageAdapter<Image>(mData) {
+        override fun onBindView(
+            holder: BannerImageHolder?,
+            data: Image?,
+            position: Int,
+            size: Int
+        ) {
+            // 图片加载
+            Picasso.get().load(
+                data?.IMAURL
+            ).into(holder?.imageView)
         }
     }
 }

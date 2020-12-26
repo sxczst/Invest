@@ -15,6 +15,7 @@ import org.sxczst.invest.fragment.HomeFragment
 import org.sxczst.invest.fragment.InvestFragment
 import org.sxczst.invest.fragment.MeFragment
 import org.sxczst.invest.fragment.MoreFragment
+import org.sxczst.invest.util.UIUtils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var transaction: FragmentTransaction
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param view 传递进来的被点击的View对象。
      */
-    fun showTab(view: View) {
+    private fun showTab(view: View) {
         when (view.id) {
             R.id.iv_main_home -> {
                 // 首页
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
                 // 改变选中项的图片和文字颜色
                 iv_main_home.setImageResource(R.drawable.bottom02)
-                tv_main_home.setTextColor(resources.getColor(R.color.main_bottom_title_selected))
+                tv_main_home.setTextColor(UIUtils.getColor(R.color.main_bottom_title_selected))
             }
             1 -> {
                 if (investFragment == null) {
@@ -119,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
                 // 改变选中项的图片和文字颜色
                 iv_main_invest.setImageResource(R.drawable.bottom04)
-                tv_main_invest.setTextColor(resources.getColor(R.color.main_bottom_title_selected))
+                tv_main_invest.setTextColor(UIUtils.getColor(R.color.main_bottom_title_selected))
             }
             2 -> {
                 if (meFragment == null) {
@@ -133,7 +134,7 @@ class MainActivity : AppCompatActivity() {
 
                 // 改变选中项的图片和文字颜色
                 iv_main_me.setImageResource(R.drawable.bottom06)
-                tv_main_me.setTextColor(resources.getColor(R.color.main_bottom_title_selected))
+                tv_main_me.setTextColor(UIUtils.getColor(R.color.main_bottom_title_selected))
             }
             3 -> {
                 if (moreFragment == null) {
@@ -147,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
                 // 改变选中项的图片和文字颜色
                 iv_main_more.setImageResource(R.drawable.bottom08)
-                tv_main_more.setTextColor(resources.getColor(R.color.main_bottom_title_selected))
+                tv_main_more.setTextColor(UIUtils.getColor(R.color.main_bottom_title_selected))
             }
         }
         // 提交事务
@@ -163,10 +164,10 @@ class MainActivity : AppCompatActivity() {
         iv_main_me.setImageResource(R.drawable.bottom05)
         iv_main_more.setImageResource(R.drawable.bottom07)
 
-        tv_main_home.setTextColor(resources.getColor(R.color.main_bottom_title_un_selected))
-        tv_main_invest.setTextColor(resources.getColor(R.color.main_bottom_title_un_selected))
-        tv_main_me.setTextColor(resources.getColor(R.color.main_bottom_title_un_selected))
-        tv_main_more.setTextColor(resources.getColor(R.color.main_bottom_title_un_selected))
+        tv_main_home.setTextColor(UIUtils.getColor(R.color.main_bottom_title_un_selected))
+        tv_main_invest.setTextColor(UIUtils.getColor(R.color.main_bottom_title_un_selected))
+        tv_main_me.setTextColor(UIUtils.getColor(R.color.main_bottom_title_un_selected))
+        tv_main_more.setTextColor(UIUtils.getColor(R.color.main_bottom_title_un_selected))
     }
 
     /**

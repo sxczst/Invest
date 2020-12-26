@@ -27,13 +27,12 @@ class ActivityManager private constructor() {
      * 移除指定的Activity
      */
     fun remove(activity: Activity?) {
-        for (mActivity in activityStack) {
+        val activityStackReversedOrder = activityStack.reversed()
+        for (mActivity in activityStackReversedOrder) {
             activity?.let {
                 if (it.javaClass == mActivity.javaClass) {
                     // 销毁当前的Activity。
-                    if (!it.isDestroyed) {
-                        it.finish()
-                    }
+                    it.finish()
                     // 将指定的Activity对象从栈空间移除。
                     activityStack.remove(mActivity)
                 }
@@ -53,7 +52,8 @@ class ActivityManager private constructor() {
      * 移除所有的Activity。
      */
     fun removeAll() {
-        for (activity in activityStack) {
+        val activityStackReversedOrder = activityStack.reversed()
+        for (activity in activityStackReversedOrder) {
             activity.finish()
             activityStack.remove(activity)
         }
