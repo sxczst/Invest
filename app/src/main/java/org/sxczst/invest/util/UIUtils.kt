@@ -26,4 +26,12 @@ object UIUtils {
      */
     fun getColor(@ColorRes colorId: Int) = getContext().resources.getColor(colorId)
 
+    /**
+     * dp -> px
+     */
+    fun dp2px(dp: Int): Int {
+        val density = getContext().resources.displayMetrics.density
+        return (density * dp + 0.5).toInt()
+    }
+
 }

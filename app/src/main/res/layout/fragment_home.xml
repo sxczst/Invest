@@ -88,16 +88,18 @@
                 app:layout_constraintStart_toEndOf="@id/tv_daily_interest"
                 app:layout_constraintTop_toTopOf="@id/tv_daily_interest" />
 
-            <View
-                android:id="@+id/v_"
+            <org.sxczst.invest.ui.RoundProgress
+                android:id="@+id/rp_home"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="10dp"
-                android:background="@android:color/holo_red_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_daily_interest" />
-
+                app:layout_constraintTop_toBottomOf="@id/tv_daily_interest"
+                app:roundColor="@color/round_background_common"
+                app:roundProgressColor="@color/round_red_common"
+                app:textColor="@color/title_text"
+                app:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_home_year_rate_key"
@@ -120,7 +122,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_home_year_rate_key"
-                app:layout_constraintTop_toBottomOf="@id/v_"
+                app:layout_constraintTop_toBottomOf="@id/rp_home"
                 tools:text="10％ + 2％" />
 
             <Button

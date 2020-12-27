@@ -12,4 +12,6 @@
     <color name="main_bottom_title_un_selected">#676767</color>
     <color name="main_bottom_title_selected">#2F83C7</color>
     <color name="product_detail_common">#666666</color>
+    <color name="round_background_common">#958E8F</color>
+    <color name="round_red_common">#DC143C</color>
 </resources>

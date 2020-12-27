@@ -5,4 +5,6 @@
     <color name="main_bottom_title_un_selected">#474747</color>
     <color name="main_bottom_title_selected">#12324C</color>
     <color name="product_detail_common">#3C3C3C</color>
+    <color name="round_background_common">#70696A</color>
+    <color name="round_red_common">#880F27</color>
 </resources>

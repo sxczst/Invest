@@ -1,6 +1,7 @@
 package org.sxczst.invest.fragment
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import com.squareup.picasso.Picasso
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
-import com.youth.banner.transformer.DepthPageTransformer
 import com.youth.banner.transformer.ZoomOutPageTransformer
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -78,6 +78,13 @@ class HomeFragment : Fragment() {
 
                     // 更新页面数据
                     tv_product_common.text = product.name
+                    val value = product.progress.toFloat()
+                    Thread {
+                        for (progress in 0..value.toInt()) {
+                            rp_home.setProgress(progress.toFloat())
+                            SystemClock.sleep(20)
+                        }
+                    }.start()
                     tv_home_year_rate.text = "${product.yearRate}％"
 
                     // 加载显示图片信息
