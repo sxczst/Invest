@@ -1,6 +1,8 @@
 package org.sxczst.invest.util
 
+import android.view.LayoutInflater
 import androidx.annotation.ColorRes
+import androidx.annotation.LayoutRes
 import org.sxczst.invest.common.MyApplication
 
 /**
@@ -33,5 +35,11 @@ object UIUtils {
         val density = getContext().resources.displayMetrics.density
         return (density * dp + 0.5).toInt()
     }
+
+    /**
+     * 通过 applicationContext 填充出新的布局。
+     */
+    fun getView(@LayoutRes layoutId: Int) =
+        LayoutInflater.from(getContext()).inflate(layoutId, null)
 
 }

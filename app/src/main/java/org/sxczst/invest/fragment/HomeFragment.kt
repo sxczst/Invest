@@ -1,14 +1,11 @@
 package org.sxczst.invest.fragment
 
-import android.os.Bundle
 import android.os.SystemClock
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.PagerAdapter
 import com.alibaba.fastjson.JSON
 import com.loopj.android.http.AsyncHttpClient
@@ -25,6 +22,7 @@ import org.sxczst.invest.bean.Image
 import org.sxczst.invest.bean.Index
 import org.sxczst.invest.bean.Product
 import org.sxczst.invest.common.AppNetConfig
+import org.sxczst.invest.common.BaseFragment
 import org.sxczst.invest.util.UIUtils
 
 /**
@@ -32,30 +30,22 @@ import org.sxczst.invest.util.UIUtils
  * @Date        :Created in 2020/12/22 19:22
  * @Description :首页
  */
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     /**
      * 网络请求下的数据
      */
     private lateinit var index: Index
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_home, null)
-        // 初始化Title
-        initTitle(view)
-        // 初始化数据
-        initData()
-        return view
-    }
+    /**
+     * 提供布局。
+     */
+    override fun getLayoutId(): Int = R.layout.fragment_home
 
     /**
      * 初始化数据
      */
-    private fun initData() {
+    override fun initData() {
         val client = AsyncHttpClient()
         client.post(AppNetConfig.INDEX, object : AsyncHttpResponseHandler() {
             /**
@@ -156,7 +146,7 @@ class HomeFragment : Fragment() {
     /**
      * 初始化Title
      */
-    private fun initTitle(view: View) {
+    override fun initTitle(view: View) {
         view.findViewById<ImageView>(R.id.iv_title_back).visibility = View.GONE
         view.findViewById<TextView>(R.id.tv_title).text =
             activity?.resources?.getText(R.string.main_bottom_home)
