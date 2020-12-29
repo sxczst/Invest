@@ -3,7 +3,10 @@ package org.sxczst.invest.fragment
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.loopj.android.http.RequestParams
+import cz.msebera.android.httpclient.Header
 import org.sxczst.invest.R
+import org.sxczst.invest.common.AppNetConfig
 import org.sxczst.invest.common.BaseFragment
 
 /**
@@ -26,9 +29,19 @@ class MeFragment : BaseFragment() {
     }
 
     /**
+     * 提供请求的URL。
+     */
+    override fun getUrl(): String = AppNetConfig.BASE_URL
+
+    /**
+     * 提供请求传递的参数。
+     */
+    override fun getRequestParams(): RequestParams? = null
+
+    /**
      * 初始化数据
      */
-    override fun initData() {
+    override fun initData(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray?) {
 
     }
 }

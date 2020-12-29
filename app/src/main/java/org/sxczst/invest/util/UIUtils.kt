@@ -1,6 +1,7 @@
 package org.sxczst.invest.util
 
 import android.view.LayoutInflater
+import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import org.sxczst.invest.common.MyApplication
@@ -39,7 +40,22 @@ object UIUtils {
     /**
      * 通过 applicationContext 填充出新的布局。
      */
-    fun getView(@LayoutRes layoutId: Int) =
+    fun getView(@LayoutRes layoutId: Int): View =
         LayoutInflater.from(getContext()).inflate(layoutId, null)
 
+    /**
+     * @param runnable 使它在主线程中执行。
+     */
+    fun runOnUiThread(runnable: Runnable) {
+        if (isInMainThread()) {
+            runnable.run()
+        } else {
+            getHandler().post(runnable)
+        }
+    }
+
+    /**
+     * 判断当前线程是否是主线程。
+     */
+    fun isInMainThread(): Boolean = MyApplication.mainThreadId == android.os.Process.myTid()
 }

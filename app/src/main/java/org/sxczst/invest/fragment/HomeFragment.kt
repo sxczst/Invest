@@ -2,14 +2,10 @@ package org.sxczst.invest.fragment
 
 import android.os.SystemClock
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.viewpager.widget.PagerAdapter
 import com.alibaba.fastjson.JSON
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
+import com.loopj.android.http.RequestParams
 import com.squareup.picasso.Picasso
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
@@ -23,7 +19,6 @@ import org.sxczst.invest.bean.Index
 import org.sxczst.invest.bean.Product
 import org.sxczst.invest.common.AppNetConfig
 import org.sxczst.invest.common.BaseFragment
-import org.sxczst.invest.util.UIUtils
 
 /**
  * @Author      :sxczst
@@ -43,104 +38,50 @@ class HomeFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_home
 
     /**
+     * 提供请求的URL。
+     */
+    override fun getUrl(): String = AppNetConfig.INDEX
+
+    /**
+     * 提供请求传递的参数。
+     */
+    override fun getRequestParams(): RequestParams? = null
+
+    /**
      * 初始化数据
      */
-    override fun initData() {
-        val client = AsyncHttpClient()
-        client.post(AppNetConfig.INDEX, object : AsyncHttpResponseHandler() {
-            /**
-             * 响应成功
-             */
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray?
-            ) {
-                // 响应成功 : 200
-                if (statusCode == 200) {
-                    // 解析Json数据
-                    val jsonObject = JSON.parseObject(responseBody.toString())
-                    val proInfo = jsonObject.getString("proInfo")
-                    val product = JSON.parseObject(proInfo, Product::class.java)
-                    val imageArr = jsonObject.getString("imageArr")
-                    val images = JSON.parseArray(imageArr, Image::class.java)
-                    index = Index(product, images)
+    override fun initData(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray?) {
+        // 响应成功 : 200
+        if (statusCode == 200) {
+            // 解析Json数据
+            val jsonObject = JSON.parseObject(responseBody.toString())
+            val proInfo = jsonObject.getString("proInfo")
+            val product = JSON.parseObject(proInfo, Product::class.java)
+            val imageArr = jsonObject.getString("imageArr")
+            val images = JSON.parseArray(imageArr, Image::class.java)
+            index = Index(product, images)
 
-                    // 更新页面数据
-                    tv_product_common.text = product.name
-                    val value = product.progress.toFloat()
-                    Thread {
-                        for (progress in 0..value.toInt()) {
-                            rp_home.setProgress(progress.toFloat())
-                            SystemClock.sleep(20)
-                        }
-                    }.start()
-                    tv_home_year_rate.text = "${product.yearRate}％"
-
-                    // 加载显示图片信息
-                    banner.apply {
-                        addBannerLifecycleObserver(this@HomeFragment)
-                        adapter = MyBannerImageAdapter(images)
-                        indicator = CircleIndicator(context)
-                        setPageTransformer(ZoomOutPageTransformer())
-                        setLoopTime(2000)
-                        start()
-                    }
+            // 更新页面数据
+            tv_product_common.text = product.name
+            val value = product.progress.toFloat()
+            Thread {
+                for (progress in 0..value.toInt()) {
+                    rp_home.setProgress(progress.toFloat())
+                    SystemClock.sleep(20)
                 }
+            }.start()
+            tv_home_year_rate.text = "${product.yearRate}％"
 
+            // 加载显示图片信息
+            banner.apply {
+                addBannerLifecycleObserver(this@HomeFragment)
+                adapter = MyBannerImageAdapter(images)
+                indicator = CircleIndicator(context)
+                setPageTransformer(ZoomOutPageTransformer())
+                setLoopTime(2000)
+                start()
             }
-
-
-            /**
-             * 响应失败
-             */
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray?,
-                error: Throwable?
-            ) {
-                Toast.makeText(UIUtils.getContext(), "联网获取数据失败", Toast.LENGTH_SHORT).show()
-                val images = mutableListOf<Image>()
-                images.add(
-                    Image(
-                        "",
-                        "",
-                        "http://img5.mtime.cn/CMS/News/2020/12/22/094113.92188278_620X620.jpg"
-                    )
-                )
-                images.add(
-                    Image(
-                        "",
-                        "",
-                        "http://img5.mtime.cn/CMS/News/2020/12/22/032942.99529434_620X620.jpg"
-                    )
-                )
-                images.add(
-                    Image(
-                        "",
-                        "",
-                        "http://img5.mtime.cn/CMS/News/2020/12/20/161352.22746421_620X620.jpg"
-                    )
-                )
-                images.add(
-                    Image(
-                        "",
-                        "",
-                        "http://img5.mtime.cn/CMS/News/2020/12/20/213512.28116968_620X620.jpg"
-                    )
-                )
-                banner.apply {
-                    addBannerLifecycleObserver(this@HomeFragment)
-                    adapter = MyBannerImageAdapter(images)
-                    indicator = CircleIndicator(context)
-                    setPageTransformer(ZoomOutPageTransformer())
-                    setLoopTime(2000)
-                    start()
-                }
-            }
-
-        })
+        }
     }
 
     /**
@@ -153,29 +94,10 @@ class HomeFragment : BaseFragment() {
         view.findViewById<ImageView>(R.id.iv_title_setting).visibility = View.GONE
     }
 
-    inner class MyAdapter : PagerAdapter() {
-        override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
-
-        override fun getCount(): Int = 3
-
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val imageView = ImageView(activity)
-            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-            // 1. 显示图片
-            Picasso.get().load(
-                index.images[position].IMAURL
-            ).into(imageView)
-            // 2. 添加到容器中
-            container.addView(imageView)
-            return imageView
-        }
-
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-            // 移除操作
-            container.removeView(`object` as View)
-        }
-    }
-
+    /**
+     * BannerImageAdapter
+     * 使用Picasso库显示网络图片。
+     */
     inner class MyBannerImageAdapter(mData: List<Image>) : BannerImageAdapter<Image>(mData) {
         override fun onBindView(
             holder: BannerImageHolder?,

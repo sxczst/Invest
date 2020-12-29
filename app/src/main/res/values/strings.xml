@@ -12,4 +12,7 @@
     <string name="home_year_rate_key">预期年利率：</string>
     <string name="home_main_button">立即加入</string>
     <string name="home_guarantee">风险保障暂未提供！！！</string>
+    <string name="page_loading">努力加载中......</string>
+    <string name="page_error">加载数据错误，点击重试!</string>
+    <string name="page_empty">抱歉，没有数据了......</string>
 </resources>
