@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="0dp"
-    android:layout_height="55dp"
+    android:layout_height="50dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -19,45 +19,41 @@
 
     <ImageView
         android:id="@+id/iv_main_home"
-        android:layout_width="30dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="3dp"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
         android:contentDescription="@string/main_bottom_home"
         android:src="@drawable/bottom01"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/iv_main_invest"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_bottom_line" />
 
     <ImageView
         android:id="@+id/iv_main_invest"
-        android:layout_width="30dp"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
         android:contentDescription="@string/main_bottom_invest"
         android:src="@drawable/bottom03"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/iv_main_me"
         app:layout_constraintStart_toEndOf="@id/iv_main_home"
         app:layout_constraintTop_toTopOf="@id/iv_main_home" />
 
     <ImageView
         android:id="@+id/iv_main_me"
-        android:layout_width="30dp"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
         android:contentDescription="@string/main_bottom_me"
         android:src="@drawable/bottom05"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/iv_main_more"
         app:layout_constraintStart_toEndOf="@id/iv_main_invest"
         app:layout_constraintTop_toTopOf="@id/iv_main_home" />
 
     <ImageView
         android:id="@+id/iv_main_more"
-        android:layout_width="30dp"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
         android:contentDescription="@string/main_bottom_more"
         android:src="@drawable/bottom07"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_main_me"
         app:layout_constraintTop_toTopOf="@id/iv_main_home" />
@@ -66,6 +62,7 @@
         android:id="@+id/tv_main_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:text="@string/main_bottom_home"
         android:textColor="@color/main_bottom_title_un_selected"
         android:textSize="@dimen/main_bottom_text_size"
@@ -82,7 +79,7 @@
         android:textSize="@dimen/main_bottom_text_size"
         app:layout_constraintEnd_toEndOf="@id/iv_main_invest"
         app:layout_constraintStart_toStartOf="@id/iv_main_invest"
-        app:layout_constraintTop_toBottomOf="@id/iv_main_invest" />
+        app:layout_constraintTop_toTopOf="@id/tv_main_home" />
 
     <TextView
         android:id="@+id/tv_main_me"
@@ -93,7 +90,7 @@
         android:textSize="@dimen/main_bottom_text_size"
         app:layout_constraintEnd_toEndOf="@id/iv_main_me"
         app:layout_constraintStart_toStartOf="@id/iv_main_me"
-        app:layout_constraintTop_toBottomOf="@id/iv_main_me" />
+        app:layout_constraintTop_toTopOf="@id/tv_main_home" />
 
     <TextView
         android:id="@+id/tv_main_more"
@@ -104,6 +101,6 @@
         android:textSize="@dimen/main_bottom_text_size"
         app:layout_constraintEnd_toEndOf="@id/iv_main_more"
         app:layout_constraintStart_toStartOf="@id/iv_main_more"
-        app:layout_constraintTop_toBottomOf="@id/iv_main_more" />
+        app:layout_constraintTop_toTopOf="@id/tv_main_home" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
