@@ -2,6 +2,7 @@ package org.sxczst.invest.ui
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.loopj.android.http.AsyncHttpClient
@@ -83,7 +84,7 @@ abstract class LoadingPage @JvmOverloads constructor(
         viewEmpty.visibility = if (stateCurrent == STATE_EMPTY) View.VISIBLE else View.INVISIBLE
 
         if (viewSuccess == null) {
-            viewSuccess = UIUtils.getView(getSuccessLayoutId())
+            viewSuccess = LayoutInflater.from(context).inflate(getSuccessLayoutId(), null)
             addView(viewSuccess, params)
         }
 

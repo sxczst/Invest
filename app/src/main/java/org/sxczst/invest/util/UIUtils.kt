@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import org.sxczst.invest.common.MyApplication
 
 /**
@@ -58,4 +59,10 @@ object UIUtils {
      * 判断当前线程是否是主线程。
      */
     fun isInMainThread(): Boolean = MyApplication.mainThreadId == android.os.Process.myTid()
+
+    /**
+     * 返回指定colorId对应的文本
+     */
+    fun getText(@StringRes stringId: Int) = getContext().resources.getText(stringId).toString()
+
 }
