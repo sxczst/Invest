@@ -25,11 +25,6 @@ class InvestFragment : BaseFragment() {
      */
     private val fragmentList = mutableListOf<Fragment>()
 
-    /**
-     * 记录三个不同Fragment的Title。
-     */
-    private val fragmentPageTitleList = mutableListOf<String>()
-
     override fun getLayoutId(): Int = R.layout.fragment_invest
 
     /**
@@ -74,17 +69,15 @@ class InvestFragment : BaseFragment() {
         val productHotFragment = ProductHotFragment()
         // 添加到集合中。
         fragmentList.add(productListFragment)
-        fragmentPageTitleList.add(UIUtils.getText(R.string.invest_product_list))
         fragmentList.add(productRecommendFragment)
-        fragmentPageTitleList.add(UIUtils.getText(R.string.invest_product_recommend))
         fragmentList.add(productHotFragment)
-        fragmentPageTitleList.add(UIUtils.getText(R.string.invest_product_hot))
     }
 
     inner class MyAdapter(fm: FragmentManager) :
         FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getItem(position: Int): Fragment = fragmentList[position]
         override fun getCount(): Int = fragmentList.size
-        override fun getPageTitle(position: Int): CharSequence? = fragmentPageTitleList[position]
+        override fun getPageTitle(position: Int): CharSequence? =
+            UIUtils.getStringArray(R.array.invest_tab)[position]
     }
 }

@@ -2,6 +2,7 @@ package org.sxczst.invest.util
 
 import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.ArrayRes
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
@@ -61,8 +62,8 @@ object UIUtils {
     fun isInMainThread(): Boolean = MyApplication.mainThreadId == android.os.Process.myTid()
 
     /**
-     * 返回指定colorId对应的文本
+     * 返回指定Id的字符串数组。
      */
-    fun getText(@StringRes stringId: Int) = getContext().resources.getText(stringId).toString()
+    fun getStringArray(@ArrayRes id: Int) = getContext().resources.getStringArray(id)
 
 }

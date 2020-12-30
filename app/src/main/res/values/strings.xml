@@ -19,4 +19,10 @@
     <string name="invest_product_list">全部理财</string>
     <string name="invest_product_recommend">推荐理财</string>
     <string name="invest_product_hot">热门理财</string>
+    <string-array name="invest_tab">
+        <item>@string/invest_product_list</item>
+        <item>@string/invest_product_recommend</item>
+        <item>@string/invest_product_hot</item>
+    </string-array>
+    <string name="marquee_text">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;广告位招租！！！&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
 </resources>
